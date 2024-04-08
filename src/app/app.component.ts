@@ -2,23 +2,33 @@ import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 
-import { UserService } from './core/services/user.service';
-import { BlogService } from './core/services/blog.service';
+import { AuthModule } from '@angular/fire/auth';
+import { AuthService } from './core/services/auth.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet],
+  imports: [CommonModule, RouterOutlet, AuthModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
   providers: [],
 })
 export class AppComponent {
-  title = 'jotjive';
+  title: string = 'JotJive';
 
-  constructor(private blogService: BlogService) {}
-
+  private authService: AuthService = inject(AuthService);
   ngOnInit(): void {
-    this.blogService.getAll();
+    this.authService.user$.subscribe((user) => {
+      if (user) {
+        this.authService.currentUserSignal.set({
+          email: user.email!,
+          username: user.displayName!,
+        });
+      } else {
+        this.authService.currentUserSignal.set(null);
+      }
+      console.log({ currentUser: this.authService.currentUserSignal() });
+    });
+
   }
 }
