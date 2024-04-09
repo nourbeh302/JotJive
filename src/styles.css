@@ -1,8 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --font-heading: "Boska", serif;
+  --font-text: "General Sans", sans-serif;
+
+  --color-danger: hsl(0, 100%, 67%);
+  --color-success: hsl(143, 73%, 46%);
+}
+
 *,
 *::before,
 *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+.heading {
+  font-family: var(--font-heading);
+  font-weight: 900;
+}
+
+.font-text {
+  font-family: var(--font-text);
 }

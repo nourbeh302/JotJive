@@ -1,53 +1,62 @@
-<form class="form-layout" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-  <div>
-    <label for="photoUrl">photoUrl:</label>
-    <input type="file" id="photoUrl" (change)="onFileSelected($event)" />
-  </div>
-  <div>
-    <label for="email">Email:</label>
-    <input type="email" id="email" formControlName="email" />
-    <div
-      *ngIf="
-        registerForm.get('email')!.invalid &&
-        (registerForm.get('email')!.dirty || registerForm.get('email')!.touched)
-      "
-    >
-      <span *ngIf="registerForm.get('email')!.errors!['required']"
-        >Email is required.</span
-      >
-      <span *ngIf="registerForm.get('email')!.errors!['email']"
-        >Invalid email format.</span
-      >
+<div class="form-layout">
+  <h2 class="form-heading heading heading-2">Explore more</h2>
+  <form class="form-group" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    
+    <div class="form-input form-photo">
+      <label class="form-label label-photo" for="photoUrl">
+        <img *ngIf="photoUrl" [src]="photoUrl" alt="Selected Image">
+      </label>
+      <input type="file" hidden id="photoUrl" (change)="onFileSelected($event)" />
     </div>
-  </div>
-
-  <div>
-    <label for="password">Password:</label>
-    <input
-      type="password"
-      id="password"
-      formControlName="password"
-      autocomplete=""
-    />
-    <div
-      *ngIf="
-        registerForm.get('password')!.invalid &&
-        (registerForm.get('password')!.dirty ||
-          registerForm.get('password')!.touched)
-      "
-    >
-      <span *ngIf="registerForm.get('password')!.errors!['required']"
-        >Password is required.</span
+    
+    <div class="form-input form-email">
+      <label class="form-label" for="email">Email:</label>
+      <input class="form-control" type="email" id="email" formControlName="email" />
+      <div
+        *ngIf="
+          registerForm.get('email')!.invalid &&
+          (registerForm.get('email')!.dirty || registerForm.get('email')!.touched)
+        "
       >
-      <span *ngIf="registerForm.get('password')!.errors!['minlength']"
-        >Password must be at least 6 characters long.</span
-      >
+        <span *ngIf="registerForm.get('email')!.errors!['required']"
+          >Email is required.</span
+        >
+        <span *ngIf="registerForm.get('email')!.errors!['email']"
+          >Invalid email format.</span
+        >
+      </div>
     </div>
-  </div>
-
-  <button type="submit" [disabled]="!registerForm.valid">Submit</button>
-
+  
+    <div class="form-input form-password">
+      <label class="form-label" for="password">Password:</label>
+      <input
+        class="form-control"
+        type="password"
+        id="password"
+        formControlName="password"
+        autocomplete="current-password"
+      />
+      @if (registerForm.get('password')!.invalid &&
+      (registerForm.get('password')!.dirty ||
+        registerForm.get('password')!.touched)) {
+          @if (registerForm.get("password")!.errors!["required"]) {
+            <span class="form-text form-validation-error">Password is required.</span>
+          }
+          @if (registerForm.get("password")!.errors!["minlength"]) {
+            <span class="form-text form-validation-error">Password must be at least 6 characters long.</span>
+          }
+        }
+        @else {
+          <span class="form-text">6-20 chars, A-Z & 0-9</span>
+        }    
+    </div>
+  
+    <button type="submit" [disabled]="!registerForm.valid">Submit</button>
+    <button type="reset">Reset</button>
+  </form>
+  
   <div>
     <a routerLink="../login">Already have account | Log in</a>
   </div>
-</form>
+</div>
+  

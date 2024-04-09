@@ -15,8 +15,8 @@ import { AuthService } from './core/services/auth.service';
 })
 export class AppComponent {
   title: string = 'JotJive';
-
   private authService: AuthService = inject(AuthService);
+
   ngOnInit(): void {
     this.authService.user$.subscribe((user) => {
       if (user) {
@@ -29,6 +29,5 @@ export class AppComponent {
       }
       console.log({ currentUser: this.authService.currentUserSignal() });
     });
-
   }
 }
