@@ -1,0 +1,12 @@
+form {
+    display: block;
+}
+
+.form-layout {
+    padding-block: 32px;
+    border: 2px solid black;
+    margin-inline: auto;
+
+    display: flex;
+    flex-direction: column;
+}

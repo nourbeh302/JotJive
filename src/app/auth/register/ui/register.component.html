@@ -1,25 +1,8 @@
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+<form class="form-layout" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
   <div>
-    <label for="imageUrl">imageUrl:</label>
-    <input type="file" id="imageUrl" formControlName="imageUrl" />
+    <label for="photoUrl">photoUrl:</label>
+    <input type="file" id="photoUrl" (change)="onFileSelected($event)" />
   </div>
-
-  <div>
-    <label for="username">Username:</label>
-    <input type="text" id="username" formControlName="username" />
-    <div
-      *ngIf="
-        registerForm.get('username')!.invalid &&
-        (registerForm.get('username')!.dirty ||
-          registerForm.get('username')!.touched)
-      "
-    >
-      <span *ngIf="registerForm.get('username')!.errors!['required']"
-        >Username is required.</span
-      >
-    </div>
-  </div>
-
   <div>
     <label for="email">Email:</label>
     <input type="email" id="email" formControlName="email" />
@@ -40,7 +23,12 @@
 
   <div>
     <label for="password">Password:</label>
-    <input type="password" id="password" formControlName="password" />
+    <input
+      type="password"
+      id="password"
+      formControlName="password"
+      autocomplete=""
+    />
     <div
       *ngIf="
         registerForm.get('password')!.invalid &&

@@ -19,7 +19,12 @@
 
   <div>
     <label for="password">Password:</label>
-    <input type="password" id="password" formControlName="password" />
+    <input
+      type="password"
+      id="password"
+      formControlName="password"
+      autocomplete=""
+    />
     <div
       *ngIf="
         loginForm.get('password')!.invalid &&
