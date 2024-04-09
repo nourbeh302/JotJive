@@ -4,7 +4,12 @@
     
     <div class="form-input form-photo">
       <label class="form-label label-photo" for="photoUrl">
-        <img *ngIf="photoUrl" [src]="photoUrl" alt="Selected Image">
+        @if (photoUrl) {
+          <img [src]="photoUrl" alt="Selected Image">
+        }
+        @else {
+          <img src="https://volunteermedicalcorps.org/worldhealthday/avatar/dist/images/avatar.png" alt="Selected Image">
+        }
       </label>
       <input type="file" hidden id="photoUrl" (change)="onFileSelected($event)" />
     </div>
@@ -12,19 +17,16 @@
     <div class="form-input form-email">
       <label class="form-label" for="email">Email:</label>
       <input class="form-control" type="email" id="email" formControlName="email" />
-      <div
-        *ngIf="
-          registerForm.get('email')!.invalid &&
-          (registerForm.get('email')!.dirty || registerForm.get('email')!.touched)
-        "
-      >
-        <span *ngIf="registerForm.get('email')!.errors!['required']"
-          >Email is required.</span
-        >
-        <span *ngIf="registerForm.get('email')!.errors!['email']"
-          >Invalid email format.</span
-        >
-      </div>
+      @if (registerForm.get('email')!.invalid &&
+      (registerForm.get('email')!.dirty ||
+        registerForm.get('email')!.touched)) {
+          @if (registerForm.get("email")!.errors!["required"]) {
+            <span class="form-text form-validation-error">Email is required.</span>
+          }
+          @if (registerForm.get("email")!.errors!["email"]) {
+            <span class="form-text form-validation-error">Invalid email format.</span>
+          }
+        }
     </div>
   
     <div class="form-input form-password">
@@ -51,8 +53,10 @@
         }    
     </div>
   
-    <button type="submit" [disabled]="!registerForm.valid">Submit</button>
-    <button type="reset">Reset</button>
+    <div class="form-cta form-button-group">
+      <button type="reset">Reset</button>
+      <button type="submit" [disabled]="!registerForm.valid">Submit</button>
+    </div>
   </form>
   
   <div>

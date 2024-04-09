@@ -41,6 +41,7 @@ form {
 
 .form-input > input {
   padding: 12px;
+  font-size: 16px;
 }
 
 #photoUrl {
@@ -48,7 +49,7 @@ form {
 }
 
 .form-password {
-  margin-block: 16px 64px;
+  margin-block: 16px 48px;
 }
 
 .form-photo {
@@ -57,21 +58,35 @@ form {
 }
 
 .label-photo {
-  background: red;
   width: 128px;
   height: 128px;
   border-radius: 50%;
   overflow: hidden;
   margin-bottom: 32px;
   cursor: pointer;
+  position: relative;
 }
 
 .label-photo:hover {
-  background: var(--color-danger);
+  filter: brightness(90%);
 }
 
 .label-photo img {
+  position: absolute;
+  z-index: -1;
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.form-button-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.form-button-group > button {
+  font-size: 16px;
+  padding-block: 12px;
 }
