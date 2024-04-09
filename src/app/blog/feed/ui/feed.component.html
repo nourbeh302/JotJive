@@ -1,3 +1,31 @@
-<p>feed works!</p>
+<nav class="navbar">
+  <button (click)="logOut()">Log Out</button>
+  <div class="navigation-user">
+    <p class="navigation-email">Welcome {{ user()?.email }}</p>
+    <div class="navigation-profile">
+      @if (user()?.photoUrl) {
 
-<button (click)="logOut()">Log Out</button>
+      <img
+        class="navigation-profile-image"
+        [src]="user()?.photoUrl"
+        alt="Avatar"
+      />
+      } @else {
+      <img
+        class="navigation-profile-image"
+        src="https://volunteermedicalcorps.org/worldhealthday/avatar/dist/images/avatar.png"
+        alt="Avatar"
+      />
+      }
+    </div>
+  </div>
+</nav>
+
+<div class="blogs-container">
+  @for (blog of blogs; track $index) {
+  <div class="blog-card">
+    <div class="blog-caption">{{ blog.caption }}</div>
+    <div class="blog-description">{{ blog.description }}</div>
+  </div>
+  }
+</div>

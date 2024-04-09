@@ -24,13 +24,13 @@ import {
   getStorage,
   uploadBytes,
 } from '@angular/fire/storage';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   private firestore = inject(Firestore);
-  private firebaseStorage = inject(Storage);
   private firebaseAuth = inject(Auth);
 
   user$ = user(this.firebaseAuth);
@@ -40,11 +40,30 @@ export class AuthService {
 
   async login(login: Login) {
     // create user in firebase auth
-    await signInWithEmailAndPassword(
-      this.firebaseAuth,
-      login.email,
-      login.password
-    );
+    try {
+      await signInWithEmailAndPassword(
+        this.firebaseAuth,
+        login.email,
+        login.password
+      );
+    } catch (error) {
+      throw error
+    }
+
+    // return the user
+    this.user$.subscribe((user) => {
+      if (user) {
+        this.currentUserSignal.set({
+          email: user.email!,
+          photoUrl: user.photoURL!,
+        });
+
+        return this.currentUserSignal()
+      } else {
+        this.currentUserSignal.set(null);
+        return null;
+      }
+    });
   }
 
   async register(register: Register) {

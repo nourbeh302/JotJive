@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 
 import { AuthModule } from '@angular/fire/auth';
 import { AuthService } from './core/services/auth.service';
@@ -16,18 +16,9 @@ import { AuthService } from './core/services/auth.service';
 export class AppComponent {
   title: string = 'JotJive';
   private authService: AuthService = inject(AuthService);
+  private router: Router = inject(Router);
 
   ngOnInit(): void {
-    this.authService.user$.subscribe((user) => {
-      if (user) {
-        this.authService.currentUserSignal.set({
-          email: user.email!,
-          photoUrl: user.photoURL!,
-        });
-      } else {
-        this.authService.currentUserSignal.set(null);
-      }
-      console.log({ currentUser: this.authService.currentUserSignal() });
-    });
+    this.router.navigateByUrl('/auth/login')
   }
 }

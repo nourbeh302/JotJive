@@ -1,0 +1,61 @@
+form {
+  display: block;
+}
+
+.form-layout {
+  margin: 32px auto;
+  padding: 32px;
+  border: 2px solid rgba(0, 0, 0, 0.342);
+  border-radius: 8px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.form-label,
+.form-control {
+  font-family: var(--font-text);
+}
+
+.form-text {
+  color: grey;
+  font-family: var(--font-text);
+}
+
+.form-layout .form-text.form-validation-error {
+  color: var(--color-danger);
+}
+
+.heading-2 {
+  font-size: clamp(32px, 100%, 64px);
+}
+
+.form-heading {
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.form-input {
+  display: grid;
+}
+
+.form-input > input {
+  padding: 12px;
+  font-size: 16px;
+}
+
+.form-password {
+  margin-block: 16px 48px;
+}
+
+.form-button-group {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.form-button-group > button {
+  font-size: 16px;
+  padding-block: 12px;
+}
