@@ -1,6 +1,11 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Login } from '../data/login.interface';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { AuthService } from '../../../core/services/auth.service';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
@@ -22,8 +27,17 @@ export class LoginComponent {
     password: ['', Validators.required],
   });
 
+  
+  get emailControl(): AbstractControl {
+    return this.loginForm.get('email')!;
+  }
+  
+  get passwordControl(): AbstractControl {
+    return this.loginForm.get('password')!;
+  }
+  
   async onSubmit() {
     await this.authService.login(this.loginForm.value as Login);
-    this.router.navigateByUrl('feed')
+    this.router.navigateByUrl('feed');
   }
 }

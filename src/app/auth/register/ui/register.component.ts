@@ -54,7 +54,6 @@ export class RegisterComponent {
     }
   }
 
-  // Helper method to get the photoUrl form control
   get photoUrlControl(): AbstractControl {
     return this.registerForm.get('photoUrl')!;
   }

@@ -1,61 +1,98 @@
-form {
-  display: block;
-}
-
 .form-layout {
-  margin: 32px auto;
-  padding: 32px;
-  border: 2px solid rgba(0, 0, 0, 0.342);
+  height: 100dvh;
+  background: beige;
+}
+
+.flex-container {
+  height: 100%;
+  display: grid;
+  background: white;
+  box-shadow: 0 0 8px hsla(0, 0%, 0%, 0.1);
+
   border-radius: 8px;
-
-  display: flex;
-  flex-direction: column;
+  overflow: hidden;
 }
 
-.form-label,
-.form-control {
-  font-family: var(--font-text);
+.form-image {
+  display: none;
 }
 
-.form-text {
-  color: grey;
-  font-family: var(--font-text);
+.flex-container > .form-image,
+.flex-container > .form-info {
+  height: 100%;
 }
 
-.form-layout .form-text.form-validation-error {
-  color: var(--color-danger);
+.form-image {
+  position: relative;
 }
 
-.heading-2 {
-  font-size: clamp(32px, 100%, 64px);
+.form-image img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 125ms ease-in;
 }
 
-.form-heading {
+/* region Form Info */
+.flex-container > .form-info {
+  padding: 32px max(32px, 8%);
+}
+
+.form-info .form-heading {
   margin-bottom: 32px;
   text-align: center;
 }
 
-.form-input {
-  display: grid;
+.form-info .form-group .form-input {
+  display: flex;
+  flex-direction: column;
+  margin-block: 4px 32px;
 }
 
-.form-input > input {
+.form-info .form-group .form-control {
   padding: 12px;
-  font-size: 16px;
+  margin-top: 4px;
 }
 
-.form-password {
-  margin-block: 16px 48px;
+.form-info .form-group .form-control-error {
+  border-color: var(--color-danger);
 }
+
+/* endregion */
 
 .form-button-group {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
-  margin-bottom: 16px;
+  display: flex;
+  gap: 32px;
 }
 
-.form-button-group > button {
-  font-size: 16px;
+.form-button-group > * {
+  flex-grow: 1;
   padding-block: 12px;
+}
+
+.link-cta {
+  margin-top: 64px;
+}
+
+@media (width > 880px) {
+  .form-layout {
+    height: 100dvh;
+    background: beige;
+    padding: 64px max(32px, 8%);
+  }
+
+  .flex-fluid {
+    grid-template-columns: 3fr 4fr;
+  }
+
+  .form-image {
+    display: block;
+    overflow: hidden;
+  }
+
+  .form-image:hover img {
+    scale: 102%;
+  }
 }

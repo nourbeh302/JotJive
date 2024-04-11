@@ -1,54 +1,76 @@
 <div class="form-layout">
-  <h2 class="form-heading heading heading-2">Explore more</h2>
-  <form class="form-group" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    
-    <div class="form-input form-email">
-      <label class="form-label" for="email">Email:</label>
-      <input class="form-control" type="email" id="email" formControlName="email" />
-      @if (loginForm.get('email')!.invalid &&
-      (loginForm.get('email')!.dirty ||
-        loginForm.get('email')!.touched)) {
-          @if (loginForm.get("email")!.errors!["required"]) {
-            <span class="form-text form-validation-error">Email is required.</span>
-          }
-          @if (loginForm.get("email")!.errors!["email"]) {
-            <span class="form-text form-validation-error">Invalid email format.</span>
-          }
-        }
-    </div>
-  
-    <div class="form-input form-password">
-      <label class="form-label" for="password">Password:</label>
-      <input
-        class="form-control"
-        type="password"
-        id="password"
-        formControlName="password"
-        autocomplete="current-password"
+  <div class="flex-container flex-fluid">
+    <div class="form-image">
+      <img
+        src="https://images.unsplash.com/photo-1512486130939-2c4f79935e4f?q=80&w=1780&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        alt="Login form image"
       />
-      @if (loginForm.get('password')!.invalid &&
-      (loginForm.get('password')!.dirty ||
-        loginForm.get('password')!.touched)) {
-          @if (loginForm.get("password")!.errors!["required"]) {
-            <span class="form-text form-validation-error">Password is required.</span>
-          }
-          @if (loginForm.get("password")!.errors!["minlength"]) {
-            <span class="form-text form-validation-error">Password must be at least 6 characters long.</span>
-          }
-        }
-        @else {
+    </div>
+    <div class="form-info">
+      <h2 class="form-heading heading heading-2">Explore more</h2>
+
+      <form class="form-group" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        
+        <div class="form-input form-email">
+          <label class="form-label" for="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            formControlName="email"
+            autocomplete="email"
+            [class.form-control.form-email]="true"
+            [class.form-control-error]="
+              emailControl.invalid &&
+              (emailControl.dirty || emailControl.touched)
+            "
+          />
+
+          @if (emailControl.invalid && (emailControl.dirty ||
+          emailControl.touched)) { @if (emailControl.errors!['required']) {
+          <span>Email is required.</span>
+          } @if (emailControl.errors!['email']) {
+          <span>Invalid email format.</span>
+          } }
+        </div>
+
+        <div class="form-input form-password">
+          <label class="form-label" for="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            formControlName="password"
+            autocomplete="password"
+            [class.form-control.form-password]="true"
+            [class.form-control-error]="
+              passwordControl.invalid &&
+              (passwordControl.dirty || passwordControl.touched)
+            "
+          />
+
+          @if (passwordControl.invalid && (passwordControl.dirty ||
+          passwordControl.touched)) { @if (passwordControl.errors!["required"])
+          {
+          <span class="form-text form-validation-error"
+            >Password is required.</span
+          >
+          } @if (passwordControl.errors!["minlength"]) {
+          <span class="form-text form-validation-error"
+            >Password must be at least 6 characters long.</span
+          >
+          } } @else {
           <span class="form-text">6-20 chars, A-Z & 0-9</span>
-        }    
+          }
+        </div>
+
+        <div class="form-cta form-button-group">
+          <button type="reset">Reset</button>
+          <button type="submit" [disabled]="!loginForm.valid">Submit</button>
+        </div>
+      </form>
+
+      <div class="link-cta">
+        <a routerLink="../register">Newbie here | Create new account</a>
+      </div>
     </div>
-  
-    <div class="form-cta form-button-group">
-      <button type="reset">Reset</button>
-      <button type="submit" [disabled]="!loginForm.valid">Submit</button>
-    </div>
-  </form>
-  
-  <div>
-    <a routerLink="../register">Newbie here | Create new account</a>
   </div>
 </div>
-  

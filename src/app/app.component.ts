@@ -19,6 +19,6 @@ export class AppComponent {
   private router: Router = inject(Router);
 
   ngOnInit(): void {
-    this.router.navigateByUrl('/auth/login')
+    // this.router.navigateByUrl('/auth/login')
   }
 }
