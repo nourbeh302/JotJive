@@ -15,10 +15,6 @@ import { AuthService } from './core/services/auth.service';
 })
 export class AppComponent {
   title: string = 'JotJive';
-  private authService: AuthService = inject(AuthService);
-  private router: Router = inject(Router);
 
-  ngOnInit(): void {
-    // this.router.navigateByUrl('/auth/login')
-  }
+  ngOnInit(): void {}
 }

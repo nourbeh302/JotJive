@@ -27,17 +27,16 @@ export class LoginComponent {
     password: ['', Validators.required],
   });
 
-  
+  async onSubmit() {
+    await this.authService.login(this.loginForm.value as Login);    
+    this.router.navigateByUrl('feed');
+  }
+
   get emailControl(): AbstractControl {
     return this.loginForm.get('email')!;
   }
-  
+
   get passwordControl(): AbstractControl {
     return this.loginForm.get('password')!;
-  }
-  
-  async onSubmit() {
-    await this.authService.login(this.loginForm.value as Login);
-    this.router.navigateByUrl('feed');
   }
 }

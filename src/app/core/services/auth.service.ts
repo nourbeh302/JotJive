@@ -18,7 +18,6 @@ import { Login } from '../../auth/login/data/login.interface';
 import { User } from '../interfaces/user.interface';
 import { Register } from '../../auth/register/data/register.interface';
 import {
-  Storage,
   ref,
   getDownloadURL,
   getStorage,
@@ -36,34 +35,20 @@ export class AuthService {
   user$ = user(this.firebaseAuth);
   currentUserSignal = signal<User | null | undefined>(undefined);
 
-  async getCurrentUser() {}
-
   async login(login: Login) {
-    // create user in firebase auth
     try {
-      await signInWithEmailAndPassword(
+      const credential = await signInWithEmailAndPassword(
         this.firebaseAuth,
         login.email,
         login.password
-      );
+      )
+      this.currentUserSignal.set({
+        email: credential.user.email!,
+        photoUrl: credential.user.photoURL!,
+      })
     } catch (error) {
-      throw error
+      throw error;
     }
-
-    // return the user
-    this.user$.subscribe((user) => {
-      if (user) {
-        this.currentUserSignal.set({
-          email: user.email!,
-          photoUrl: user.photoURL!,
-        });
-
-        return this.currentUserSignal()
-      } else {
-        this.currentUserSignal.set(null);
-        return null;
-      }
-    });
   }
 
   async register(register: Register) {
